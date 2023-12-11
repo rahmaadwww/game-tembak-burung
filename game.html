@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>game tembak burung</title>
+    <style type="text/css">
+        body{
+            font-family: sans-serif;
+        }
+        .b{
+            font-weight: bold;
+        }
+    </style>
+    
+</head>
+<body>
+    <h1>Game Tembak Burung</h1>
+    <p class="b">Top score: <span id="topscore"></span></p>
+    <p class="b">Total waktu: <span id="tw"></span></p>
+    <img id="h">
+
+    <script type="text/javascript">
+        var counter=1;
+        var start="";
+        var end="";
+        var tw="";
+        if (localStorage.getItem("topscore") !== null) {
+            var topscore= localStorage.getItem("topscore");
+            document.getElementById("topscore").innerHTML= topscore + "s";
+    }
+        tg();
+        function tg(){
+            var top= Math.random()*400;
+            var left= Math.random()*400;
+            start= new Date().getTime();
+            document.getElementById("h").src = "p.png"; =height
+            document.getElementById("h").style.height= 60+"px";
+            document.getElementById("h").style.width= 60+"px";
+            document.getElementById("h").style.left = left + "px";
+            document.getElementById("h").style.top= top + "px";
+            document.getElementById("h").style.position="relative";
+            document.getElementById("h").style.display="block";
+        }
+        document.getElementById("h").onclick = function (){
+            document.getElementById("h").src = "w.png";
+            document.getElementById("h").style.height= 120+"px";
+            document.getElementById("h").style.width= 120+"px";
+            setTimeout (sg,500);
+            if (counter < 5) {
+            setTimeout (tg,600);
+            counter++;
+            } else{
+                setTimeout(function(){ alert("end");},100);
+                end=new Date().getTime();
+                tw = (end - start) / 1000;
+                document.getElementById("tw").innerHTML = tw+"s";
+                settopscore();
+            }
+        }
+        function sg(){
+            document.getElementById("h").style.display="none";
+        }
+        function settopscore(){
+            if (localStorage.getItem("topscore")== null){
+                localStorage.setItem("topscore",tw);
+                document.getElementById("topscore").innerHTML = tw+"s";
+            }else if (tw < topscore) {
+                localStorage.setItem("topscore",tw);
+                document.getElementById("topscore").innerHTML = tw+"s";
+            } else{
+                
+            }
+        }
+    </script>
+</body>
+</html>
